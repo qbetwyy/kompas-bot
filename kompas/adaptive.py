@@ -58,10 +58,12 @@ def pick_case(scenario: str, kb: KnowledgeBase, zones: list[tuple[str, float]],
         counts[a["case_id"]] = counts.get(a["case_id"], 0) + 1
 
     def value(c: Case) -> float:
-        v = sum(weight.get(code, 0.0) for code in c.tests) * 2
-        if c.id in recent:
-            v -= 3 - recent.index(c.id) * 0.5  # недавно пройденные кейсы откладываем
-        v -= 0.3 * counts.get(c.id, 0)          # редко пройденные, вперёд
+        v = sum(weight.get(code, 0.0) for code in c.tests) * 3  # слабые зоны важнее разнообразия
+        if recent and c.id == recent[0]:
+            v -= 10                              # один и тот же вопрос два раза подряд не задаём
+        elif c.id in recent[1:3]:
+            v -= 0.4 * (3 - recent.index(c.id))  # недавние чуть откладываем, но к слабому месту возвращаемся
+        v -= 0.25 * counts.get(c.id, 0)          # редко пройденные, вперёд
         return v + rng.random() * 0.2
 
     return max(candidates, key=value)
