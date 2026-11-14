@@ -37,8 +37,8 @@ python3 -m venv .venv
 if [ ! -f .env ]; then
   cp .env.example .env
   T=""; K=""
-  while [ -z "$T" ]; do read -rsp "Вставь токен бота (BOT_TOKEN) и нажми Enter: " T; echo; T=$(printf %s "$T" | tr -d '[:space:]'); done
-  while [ -z "$K" ]; do read -rsp "Вставь ключ Anthropic (ANTHROPIC_API_KEY) и нажми Enter: " K; echo; K=$(printf %s "$K" | tr -d '[:space:]'); done
+  while [ -z "$T" ]; do read -rsp "Вставь токен бота (BOT_TOKEN) и нажми Enter: " T; echo; T=$(printf %s "$T" | tr -d '[:space:]'); T=${T#BOT_TOKEN=}; done
+  while [ -z "$K" ]; do read -rsp "Вставь ключ Anthropic (ANTHROPIC_API_KEY) и нажми Enter: " K; echo; K=$(printf %s "$K" | tr -d '[:space:]'); K=${K#ANTHROPIC_API_KEY=}; done
   sed -i "s|^BOT_TOKEN=.*|BOT_TOKEN=${T}|; s|^ANTHROPIC_API_KEY=.*|ANTHROPIC_API_KEY=${K}|; s|^WHISPER_MODEL=.*|WHISPER_MODEL=${WHISPER}|" .env
   chmod 600 .env
   unset T K
