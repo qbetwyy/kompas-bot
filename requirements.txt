@@ -1,0 +1,10 @@
+aiogram>=3.13,<4
+anthropic>=0.40
+aiosqlite>=0.20
+fpdf2>=2.7.9
+snowballstemmer>=2.2
+matplotlib>=3.7
+python-dotenv>=1.0
+pytest>=8.0
+# Голосовые сообщения (опционально, локальное распознавание):
+# faster-whisper>=1.0
