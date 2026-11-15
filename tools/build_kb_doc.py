@@ -21,7 +21,7 @@ def main():
             lines += [f"### [{e.id}] {e.topic}", "", e.content, ""]
             if e.insider:
                 lines += [f"**Внутренняя кухня.** {e.insider}", ""]
-            lines += [f"**Типичная ошибка.** {e.mistake}", "", f"**Удачный пример.** {e.good_example}", "", "**Источники:**"]
+            lines += [f"**Типичная ошибка.** {e.mistake}", "", f"**Удачный пример.** {e.good_example}", "", "**Источники:**", ""]
             lines += [f"- [{s.title}]({s.url})" for s in e.sources]
             lines.append("")
         cases = kb.cases_for(scn)
